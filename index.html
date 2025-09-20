@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANB Mastery - Advanced AI Breathing Coach</title>
+    <meta name="description" content="Premium AI-powered Alternate Nostril Breathing practice with advanced biometric monitoring">
+    <meta name="theme-color" content="#1FB8CD">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container" id="appContainer">
+        <!-- Loading Screen -->
+        <div class="loading-screen active" id="loadingScreen">
+            <div class="loading-content">
+                <div class="loading-logo">
+                    <div class="logo-circle">
+                        <div class="logo-inner">✨</div>
+                    </div>
+                </div>
+                <h2 class="loading-title">ANB Mastery</h2>
+                <p class="loading-subtitle">Initializing AI Detection Systems</p>
+                <div class="loading-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="loadingProgress"></div>
+                    </div>
+                    <div class="loading-status" id="loadingStatus">Calibrating sensors...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Application -->
+        <div class="main-app hidden" id="mainApp">
+            <!-- Header with Advanced Controls -->
+            <header class="app-header glassmorphic">
+                <div class="header-content">
+                    <div class="app-branding">
+                        <div class="logo-section">
+                            <div class="logo-icon">
+                                <div class="breathing-pulse"></div>
+                            </div>
+                            <div class="brand-info">
+                                <h1 class="app-title">ANB Mastery</h1>
+                                <span class="app-tagline">AI Breathing Coach</span>
+                            </div>
+                        </div>
+                        <div class="user-level">
+                            <div class="level-badge" id="userLevel">Lv.3 Balanced Seeker</div>
+                            <div class="xp-progress">
+                                <div class="xp-bar">
+                                    <div class="xp-fill" id="xpFill" style="width: 65%"></div>
+                                </div>
+                                <span class="xp-text" id="xpText">2,250 / 3,500 XP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="header-controls">
+                        <div class="wellness-score">
+                            <div class="score-circle" id="wellnessCircle">
+                                <span class="score-value" id="wellnessScore">84</span>
+                                <span class="score-label">Wellness</span>
+                            </div>
+                        </div>
+                        <button class="btn btn--glass" id="achievementsBtn">
+                            <span class="btn-icon">🏆</span>
+                            Achievements
+                        </button>
+                        <button class="btn btn--glass" id="settingsBtn">
+                            <span class="btn-icon">⚙️</span>
+                            Settings
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Dashboard -->
+            <main class="dashboard">
+                <div class="dashboard-grid">
+                    <!-- AI Detection Panel -->
+                    <div class="ai-panel glassmorphic">
+                        <div class="panel-header">
+                            <h3>AI Biometric Monitoring</h3>
+                            <div class="ai-status-indicator">
+                                <div class="status-dot active"></div>
+                                <span>Neural Networks Active</span>
+                            </div>
+                        </div>
+                        
+                        <div class="camera-container">
+                            <video id="webcam" autoplay muted playsinline class="camera-feed"></video>
+                            <div class="biometric-overlay">
+                                <div class="detection-points" id="detectionPoints"></div>
+                                <div class="confidence-display">
+                                    <div class="confidence-meter" id="confidenceMeter">
+                                        <div class="meter-fill" style="height: 85%"></div>
+                                        <span class="meter-label">85% Confidence</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detection-metrics">
+                            <div class="metric-group">
+                                <div class="metric-item">
+                                    <div class="metric-label">Posture Score</div>
+                                    <div class="metric-value" id="postureScore">92</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-label">Eye Closure</div>
+                                    <div class="metric-value" id="eyeClosure">98</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 98%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-label">Head Stability</div>
+                                    <div class="metric-value" id="headStability">89</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 89%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-label">Breath Rhythm</div>
+                                    <div class="metric-value" id="breathRhythm">94</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 94%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Practice Session Panel -->
+                    <div class="practice-panel glassmorphic">
+                        <div class="panel-header">
+                            <h3>Breathing Practice</h3>
+                            <div class="session-info">
+                                <span class="pattern-name" id="currentPattern">Balanced Flow (5:5)</span>
+                                <span class="session-timer" id="sessionTimer">15:00</span>
+                            </div>
+                        </div>
+
+                        <div class="breathing-visualization">
+                            <div class="breathing-circle-container">
+                                <div class="breathing-circle" id="breathingCircle">
+                                    <div class="circle-layers">
+                                        <div class="layer layer-1"></div>
+                                        <div class="layer layer-2"></div>
+                                        <div class="layer layer-3"></div>
+                                    </div>
+                                    <div class="breath-content">
+                                        <div class="breath-instruction" id="breathInstruction">Prepare to Begin</div>
+                                        <div class="breath-count" id="breathCount">4</div>
+                                        <div class="phase-indicator" id="phaseIndicator">Inhale</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="nostril-visualization">
+                                <div class="nostril-container">
+                                    <div class="nostril left-nostril" id="leftNostril">
+                                        <div class="nostril-glow"></div>
+                                        <div class="nostril-indicator"></div>
+                                        <span class="nostril-label">Left</span>
+                                    </div>
+                                    <div class="mudra-display">
+                                        <div class="hand-gesture">🤚</div>
+                                        <span class="mudra-name">Nasika Mudra</span>
+                                    </div>
+                                    <div class="nostril right-nostril" id="rightNostril">
+                                        <div class="nostril-glow"></div>
+                                        <div class="nostril-indicator"></div>
+                                        <span class="nostril-label">Right</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="practice-controls">
+                            <div class="session-progress">
+                                <div class="progress-ring" id="sessionProgress">
+                                    <svg class="progress-svg" viewBox="0 0 100 100">
+                                        <circle cx="50" cy="50" r="45" class="progress-bg"></circle>
+                                        <circle cx="50" cy="50" r="45" class="progress-bar" id="progressCircle"></circle>
+                                    </svg>
+                                    <div class="progress-text">
+                                        <span class="cycle-count" id="cycleCount">3/12</span>
+                                        <span class="cycle-label">Cycles</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-buttons">
+                                <button class="btn btn--glass" id="quickPracticeBtn">
+                                    <span class="btn-icon">⚡</span>
+                                    Quick (1min)
+                                </button>
+                                <button class="btn btn--primary" id="startBtn">
+                                    <span class="btn-icon">▶</span>
+                                    Start Practice
+                                </button>
+                                <button class="btn btn--secondary" id="customizeBtn">
+                                    <span class="btn-icon">⚙</span>
+                                    Customize
+                                </button>
+                            </div>
+
+                            <div class="active-controls hidden" id="activeControls">
+                                <button class="btn btn--warning" id="pauseBtn">
+                                    <span class="btn-icon">⏸</span>
+                                    Pause
+                                </button>
+                                <button class="btn btn--danger" id="stopBtn">
+                                    <span class="btn-icon">⏹</span>
+                                    Stop
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Dashboard -->
+                    <div class="analytics-panel glassmorphic">
+                        <div class="panel-header">
+                            <h3>Performance Analytics</h3>
+                            <div class="time-filter">
+                                <button class="filter-btn active" data-period="week">Week</button>
+                                <button class="filter-btn" data-period="month">Month</button>
+                                <button class="filter-btn" data-period="year">Year</button>
+                            </div>
+                        </div>
+
+                        <div class="analytics-content">
+                            <div class="stats-overview">
+                                <div class="stat-card">
+                                    <div class="stat-icon">📊</div>
+                                    <div class="stat-info">
+                                        <span class="stat-value" id="totalSessions">127</span>
+                                        <span class="stat-label">Sessions</span>
+                                    </div>
+                                    <div class="stat-trend up">+12%</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">⏱</div>
+                                    <div class="stat-info">
+                                        <span class="stat-value" id="totalMinutes">1,248</span>
+                                        <span class="stat-label">Minutes</span>
+                                    </div>
+                                    <div class="stat-trend up">+8%</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">🔥</div>
+                                    <div class="stat-info">
+                                        <span class="stat-value" id="currentStreak">23</span>
+                                        <span class="stat-label">Day Streak</span>
+                                    </div>
+                                    <div class="stat-trend up">New Record!</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">🎯</div>
+                                    <div class="stat-info">
+                                        <span class="stat-value" id="avgQuality">94.2</span>
+                                        <span class="stat-label">Avg Quality</span>
+                                    </div>
+                                    <div class="stat-trend up">+2.1%</div>
+                                </div>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="performanceChart" class="performance-chart"></canvas>
+                            </div>
+
+                            <div class="recent-achievements" id="recentAchievements">
+                                <h4>Recent Achievements</h4>
+                                <div class="achievement-list">
+                                    <div class="achievement-item earned">
+                                        <span class="achievement-icon">🏆</span>
+                                        <div class="achievement-info">
+                                            <span class="achievement-name">Perfect Week</span>
+                                            <span class="achievement-desc">7 days of consistent practice</span>
+                                        </div>
+                                        <span class="achievement-xp">+500 XP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Insights Panel -->
+                    <div class="insights-panel glassmorphic">
+                        <div class="panel-header">
+                            <h3>AI Insights & Recommendations</h3>
+                            <div class="ai-confidence">
+                                <span class="confidence-badge">98% Accuracy</span>
+                            </div>
+                        </div>
+
+                        <div class="insights-content">
+                            <div class="insight-card priority">
+                                <div class="insight-icon">🎯</div>
+                                <div class="insight-text">
+                                    <h4>Posture Improvement</h4>
+                                    <p>Your spinal alignment has improved by 15% this week. Focus on shoulder relaxation for even better results.</p>
+                                </div>
+                            </div>
+
+                            <div class="insight-card">
+                                <div class="insight-icon">🧠</div>
+                                <div class="insight-text">
+                                    <h4>Optimal Practice Time</h4>
+                                    <p>Based on your patterns, 7:30 AM sessions show 22% better focus quality than evening sessions.</p>
+                                </div>
+                            </div>
+
+                            <div class="insight-card">
+                                <div class="insight-icon">📈</div>
+                                <div class="insight-text">
+                                    <h4>Breathing Pattern Evolution</h4>
+                                    <p>Ready for Advanced (6:6) pattern. Your rhythm consistency is 94% - excellent progress!</p>
+                                </div>
+                            </div>
+
+                            <div class="recommended-session">
+                                <h4>Today's Recommended Session</h4>
+                                <div class="session-card">
+                                    <div class="session-type">Deep Harmony (6:6)</div>
+                                    <div class="session-duration">15 minutes</div>
+                                    <div class="session-reason">Perfect for your current stress level and experience</div>
+                                    <button class="btn btn--glass btn--sm" id="startRecommendedBtn">Start Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Customize Session Modal -->
+            <div class="modal hidden" id="customizeModal">
+                <div class="modal-overlay" id="modalOverlay"></div>
+                <div class="modal-content glassmorphic">
+                    <div class="modal-header">
+                        <h2>Customize Your Session</h2>
+                        <button class="modal-close" id="closeCustomize">✕</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class="customize-section">
+                            <h3>Breathing Pattern</h3>
+                            <div class="pattern-grid" id="patternGrid">
+                                <div class="pattern-card active" data-pattern="quick_4_4">
+                                    <div class="pattern-header">
+                                        <span class="pattern-name">Quick Focus</span>
+                                        <span class="pattern-xp">25 XP</span>
+                                    </div>
+                                    <div class="pattern-timing">4:4</div>
+                                    <div class="pattern-desc">Rapid centering technique</div>
+                                    <div class="pattern-difficulty">
+                                        <span class="difficulty-star filled">★</span>
+                                        <span class="difficulty-star">★</span>
+                                        <span class="difficulty-star">★</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="pattern-card" data-pattern="standard_5_5">
+                                    <div class="pattern-header">
+                                        <span class="pattern-name">Balanced Flow</span>
+                                        <span class="pattern-xp">75 XP</span>
+                                    </div>
+                                    <div class="pattern-timing">5:5</div>
+                                    <div class="pattern-desc">Harmonious breathing</div>
+                                    <div class="pattern-difficulty">
+                                        <span class="difficulty-star filled">★</span>
+                                        <span class="difficulty-star filled">★</span>
+                                        <span class="difficulty-star">★</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="pattern-card" data-pattern="advanced_6_6">
+                                    <div class="pattern-header">
+                                        <span class="pattern-name">Deep Harmony</span>
+                                        <span class="pattern-xp">100 XP</span>
+                                    </div>
+                                    <div class="pattern-timing">6:6</div>
+                                    <div class="pattern-desc">Advanced pattern</div>
+                                    <div class="pattern-difficulty">
+                                        <span class="difficulty-star filled">★</span>
+                                        <span class="difficulty-star filled">★</span>
+                                        <span class="difficulty-star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-section">
+                            <h3>Session Duration</h3>
+                            <div class="duration-slider">
+                                <input type="range" id="durationSlider" min="1" max="30" value="15" class="slider">
+                                <div class="slider-labels">
+                                    <span>1 min</span>
+                                    <span id="durationValue">15 min</span>
+                                    <span>30 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-section">
+                            <h3>AI Sensitivity</h3>
+                            <div class="sensitivity-controls">
+                                <div class="sensitivity-item">
+                                    <label>Posture Monitoring</label>
+                                    <input type="range" id="postureSensitivity" min="1" max="10" value="7" class="slider">
+                                </div>
+                                <div class="sensitivity-item">
+                                    <label>Eye Tracking</label>
+                                    <input type="range" id="eyeSensitivity" min="1" max="10" value="8" class="slider">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn btn--secondary" id="resetCustomize">Reset to Default</button>
+                        <button class="btn btn--primary" id="startCustomSession">Start Session</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Modal -->
+            <div class="modal hidden" id="settingsModal">
+                <div class="modal-overlay"></div>
+                <div class="modal-content glassmorphic">
+                    <div class="modal-header">
+                        <h2>Advanced Settings</h2>
+                        <button class="modal-close" id="closeSettings">✕</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class="settings-tabs">
+                            <button class="tab-btn active" data-tab="ai">AI & Detection</button>
+                            <button class="tab-btn" data-tab="audio">Audio & Voice</button>
+                            <button class="tab-btn" data-tab="personalization">Personalization</button>
+                        </div>
+                        
+                        <div class="tab-content">
+                            <div class="tab-panel active" id="aiTab">
+                                <div class="setting-group">
+                                    <h4>Detection Models</h4>
+                                    <div class="setting-item">
+                                        <label class="setting-label">
+                                            <span>12-Point Posture Analysis</span>
+                                            <input type="checkbox" checked class="setting-toggle">
+                                        </label>
+                                    </div>
+                                    <div class="setting-item">
+                                        <label class="setting-label">
+                                            <span>Advanced Eye Tracking</span>
+                                            <input type="checkbox" checked class="setting-toggle">
+                                        </label>
+                                    </div>
+                                    <div class="setting-item">
+                                        <label class="setting-label">
+                                            <span>Breathing Pattern Recognition</span>
+                                            <input type="checkbox" checked class="setting-toggle">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-panel" id="audioTab">
+                                <div class="setting-group">
+                                    <h4>Audio Settings</h4>
+                                    <div class="setting-item">
+                                        <label>Master Volume</label>
+                                        <input type="range" min="0" max="100" value="75" class="slider">
+                                    </div>
+                                    <div class="setting-item">
+                                        <label class="setting-label">
+                                            <span>Voice Guidance</span>
+                                            <input type="checkbox" checked class="setting-toggle">
+                                        </label>
+                                    </div>
+                                    <div class="setting-item">
+                                        <label class="setting-label">
+                                            <span>Breathing Sounds</span>
+                                            <input type="checkbox" checked class="setting-toggle">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-panel" id="personalizationTab">
+                                <div class="setting-group">
+                                    <h4>Personalization</h4>
+                                    <div class="setting-item">
+                                        <label class="setting-label">
+                                            <span>Smart Recommendations</span>
+                                            <input type="checkbox" checked class="setting-toggle">
+                                        </label>
+                                    </div>
+                                    <div class="setting-item">
+                                        <label class="setting-label">
+                                            <span>Adaptive Difficulty</span>
+                                            <input type="checkbox" checked class="setting-toggle">
+                                        </label>
+                                    </div>
+                                    <div class="setting-item">
+                                        <label class="setting-label">
+                                            <span>Daily Challenges</span>
+                                            <input type="checkbox" checked class="setting-toggle">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn btn--secondary" id="resetSettings">Reset All</button>
+                        <button class="btn btn--primary" id="saveSettings">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements Modal -->
+            <div class="modal hidden" id="achievementsModal">
+                <div class="modal-overlay"></div>
+                <div class="modal-content glassmorphic">
+                    <div class="modal-header">
+                        <h2>Achievements & Progress</h2>
+                        <button class="modal-close" id="closeAchievements">✕</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class="achievements-overview">
+                            <div class="level-progress">
+                                <div class="current-level">
+                                    <div class="level-icon">🧘‍♀️</div>
+                                    <div class="level-info">
+                                        <span class="level-title">Balanced Seeker</span>
+                                        <span class="level-number">Level 3</span>
+                                    </div>
+                                </div>
+                                <div class="xp-progress-large">
+                                    <div class="xp-bar-large">
+                                        <div class="xp-fill-large" style="width: 64%"></div>
+                                    </div>
+                                    <span class="xp-text-large">2,250 / 3,500 XP to Level 4</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="achievements-grid" id="achievementsGrid">
+                            <!-- Achievements will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Complete Modal -->
+        <div class="modal hidden" id="sessionCompleteModal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content glassmorphic celebration">
+                <div class="celebration-header">
+                    <div class="celebration-icon">🎉</div>
+                    <h2>Excellent Session!</h2>
+                    <p>You've completed your breathing practice with outstanding results</p>
+                </div>
+                
+                <div class="session-results" id="sessionResults">
+                    <div class="result-stats">
+                        <div class="result-item">
+                            <div class="result-icon">📊</div>
+                            <div class="result-info">
+                                <span class="result-value" id="sessionQuality">94</span>
+                                <span class="result-label">Session Quality</span>
+                            </div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-icon">⏱</div>
+                            <div class="result-info">
+                                <span class="result-value" id="sessionDuration">15:00</span>
+                                <span class="result-label">Duration</span>
+                            </div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-icon">✨</div>
+                            <div class="result-info">
+                                <span class="result-value" id="xpEarned">+100</span>
+                                <span class="result-label">XP Earned</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievements-earned" id="achievementsEarned">
+                        <!-- New achievements will appear here -->
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button class="btn btn--secondary" id="shareResults">Share Results</button>
+                    <button class="btn btn--primary" id="continueButton">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification System -->
+        <div class="notification-container" id="notificationContainer">
+            <!-- Notifications will be inserted here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
